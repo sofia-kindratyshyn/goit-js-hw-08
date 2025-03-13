@@ -65,9 +65,9 @@ const images = [
 ];
 
 const gallery = document.querySelector(".gallery");
-
 const addMarkup = images
   .map((img) => {
+    const { preview, original, description } = img;
     gallery.insertAdjacentHTML(
       "beforeend",
       `
@@ -75,9 +75,9 @@ const addMarkup = images
   <a class="gallery-link" href="large-image.jpg">
     <img
       class="gallery-image"
-      src="${img.preview}"
-      data-source="${img.original}"
-      alt="${img.description}"
+      src="${preview}"
+      data-source="${original}"
+      alt="${description}"
     />
   </a>
 </li>
