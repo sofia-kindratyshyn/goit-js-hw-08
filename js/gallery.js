@@ -65,14 +65,14 @@ const images = [
 ];
 
 const gallery = document.querySelector(".gallery");
-const addMarkup = images
-  .map((img) => {
-    const { preview, original, description } = img;
-    gallery.insertAdjacentHTML(
-      "beforeend",
-      `
+gallery.insertAdjacentHTML(
+  "beforeend",
+  images
+    .map((img) => {
+      const { preview, original, description } = img;
+      return `
     <li class="gallery-item">
-  <a class="gallery-link" href="large-image.jpg">
+  <a class="gallery-link" href="${original}">
     <img
       class="gallery-image"
       src="${preview}"
@@ -81,23 +81,15 @@ const addMarkup = images
     />
   </a>
 </li>
-    `
-    );
-  })
-  .join("");
-
-const galleryCard = document.querySelectorAll(".gallery-item");
-const imageLink = document.querySelectorAll(".gallery-link");
-[...imageLink].map((link) => {
-  link.addEventListener("click", preventFunc);
-  function preventFunc(event) {
-    event.preventDefault();
-  }
-});
+    `;
+    })
+    .join("")
+);
 
 gallery.addEventListener("click", cardClickFunction);
 function cardClickFunction(event) {
-  if (!(event.currentTarget === event.target)) {
+  event.preventDefault();
+  if (event.target.tagName === "IMG") {
     const instance = basicLightbox.create(
       `<img src="${event.target.dataset.source}" alt="${event.target.alt}">`
     );
